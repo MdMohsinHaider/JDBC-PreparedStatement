@@ -2,6 +2,7 @@ import com.infosys.jdbc_prepared_statetment_curd.dao.LaptopDao;
 import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class LaptopController {
@@ -42,6 +43,15 @@ public class LaptopController {
                 String msgString = a!=0?"deleted":"given id is not present";
                 System.out.println(msgString);
             }break;
+            case 3:{
+                // update
+            }break;
+            case 4: {
+                List<Laptop> laptops = dao.getAllLaptopDao();
+                for(Laptop laptop:laptops){
+                    System.out.println(laptop);
+                }
+            }
         }
         scanner.close();
     }
