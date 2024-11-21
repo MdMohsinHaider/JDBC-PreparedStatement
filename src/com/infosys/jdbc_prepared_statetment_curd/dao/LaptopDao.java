@@ -19,6 +19,7 @@ public class LaptopDao {
     private final String DELETELAPTOPQUERY = "delete from laptop where id=?";
     private final String UPDATELAPTOPQUERY = "update laptop set color = ? where id=?";
     private final String DISPLAYLAPTOPQUERY = "select * from laptop";
+    private final String DISPALYSINGLELAPTOPQUERY = "select * from laptop where id=?";
 
 
 
@@ -56,6 +57,8 @@ public class LaptopDao {
             return 0;
         }
     }
+
+
 
     // ------3. Update ---
     public int updateLaptopByIdDao(int laptopId){
@@ -99,6 +102,37 @@ public class LaptopDao {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    // Display Single Laptop data.
+    public Laptop getLaptopByIdDao(int laptop_id) {
+        try {
+            // Prepare the statement with the query
+            PreparedStatement ps = connection.prepareStatement(DISPALYSINGLELAPTOPQUERY);
+            ps.setInt(1, laptop_id);
+
+            // Execute the query
+            ResultSet result_set = ps.executeQuery();
+
+            // Ensure result_set has data before accessing it
+            if (result_set.next()) {
+                int id = result_set.getInt("id");
+                String name = result_set.getString("name");
+                String color = result_set.getString("color");
+                double price = result_set.getDouble("price");
+                LocalDate mfd = result_set.getDate("mfd").toLocalDate();
+
+                // Return the constructed Laptop object
+                return new Laptop(id, name, color, price, mfd);
+            } else {
+                System.err.println("No laptop found with ID: " + laptop_id);
+                return null;
+            }
+        } catch (Exception e) {
+            // Print detailed error for debugging
+            System.err.println("Error fetching laptop data: " + e.getMessage());
             return null;
         }
     }

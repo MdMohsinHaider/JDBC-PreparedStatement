@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class LaptopController {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display");
+        System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id");
         System.out.println("Please Enter Choice");
         int choice = scanner.nextInt();
 
@@ -51,6 +51,12 @@ public class LaptopController {
                 for(Laptop laptop:laptops){
                     System.out.println(laptop);
                 }
+            }break;
+            case 5: {
+                System.out.print("Enter laptop id to find laptop : ");
+                int id = scanner.nextInt();
+                Laptop laptop = dao.getLaptopByIdDao(id);
+                System.out.println(laptop);
             }
         }
         scanner.close();
