@@ -23,7 +23,7 @@ public class LaptopDao {
 
 
 
-    // ........1. insert method .....
+    // .................................... 1. insert method ...................................
     public Laptop saveLaptopDao(Laptop laptop) {
         try {
             PreparedStatement ps = connection.prepareStatement(INSERTLAPTOPQUERY);
@@ -46,7 +46,7 @@ public class LaptopDao {
 
 
 
-    // ....... 2. Delete method .....
+    // ............................ 2. Delete method ......................................
     public int deleteLaptopByIdDao(int laptopId) {
         try {
             PreparedStatement ps = connection.prepareStatement(DELETELAPTOPQUERY);
@@ -60,7 +60,7 @@ public class LaptopDao {
 
 
 
-    // ------3. Update ---
+    // --------------------3. Update -----------------------------------------------------------
     public int updateLaptopByIdDao(int laptopId){
         try {
             PreparedStatement ps = connection.prepareStatement(UPDATELAPTOPQUERY);
@@ -76,7 +76,7 @@ public class LaptopDao {
 
 
 
-    // .......4. Display all the data ........
+    // .......4. Display all the data .........................................................
     public List<Laptop> getAllLaptopDao() {
         try {
             PreparedStatement ps = connection.prepareStatement(DISPLAYLAPTOPQUERY);
@@ -106,7 +106,7 @@ public class LaptopDao {
         }
     }
 
-    // Display Single Laptop data.
+    //............. 5. Display Single Laptop data..........................................
     public Laptop getLaptopByIdDao(int laptop_id) {
         try {
             // Prepare the statement with the query
@@ -115,6 +115,8 @@ public class LaptopDao {
 
             // Execute the query
             ResultSet result_set = ps.executeQuery();
+
+//            result_set.next();
 
             // Ensure result_set has data before accessing it
             if (result_set.next()) {
