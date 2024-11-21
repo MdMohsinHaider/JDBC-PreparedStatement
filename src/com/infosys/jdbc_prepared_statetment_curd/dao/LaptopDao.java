@@ -17,7 +17,7 @@ public class LaptopDao {
 
     private final String INSERTLAPTOPQUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
     private final String DELETELAPTOPQUERY = "delete from laptop where id=?";
-    private final String UPDATELAPTOPQUERY = "update laptop set color = ? where id=?";
+    private final String UPDATELAPTOPQUERY = "update laptop set name=?,color=?,price=?,mfd=? where id=?";
     private final String DISPLAYLAPTOPQUERY = "select * from laptop";
     private final String DISPALYSINGLELAPTOPQUERY = "select * from laptop where id=?";
 
@@ -60,18 +60,30 @@ public class LaptopDao {
 
 
 
+
+
+
     // --------------------3. Update -----------------------------------------------------------
-    public int updateLaptopByIdDao(int laptopId){
+    public Laptop updateLaptopByIdDao(int laptopId, Laptop laptop){
         try {
             PreparedStatement ps = connection.prepareStatement(UPDATELAPTOPQUERY);
-            ps.setInt(1,laptopId);
-            return ps.executeUpdate();
+            ps.setInt(5,laptopId);
+            ps.setString(1,laptop.getName());
+            ps.setString(2, laptop.getColor());
+            ps.setDouble(3,laptop.getPrice());
+            ps.setObject(4,laptop.getMfd());
+
+            int a = ps.executeUpdate(); // if save return 0< return
+            System.out.println("..Successfully full update values..");
+            return a != 0?laptop:null;
         }
         catch (Exception e){
             System.err.println(e.getMessage());
-            return 0;
+            return null;
         }
     }
+
+
 
 
 
@@ -105,6 +117,13 @@ public class LaptopDao {
             return null;
         }
     }
+
+
+
+
+
+
+
 
     //............. 5. Display Single Laptop data..........................................
     public Laptop getLaptopByIdDao(int laptop_id) {

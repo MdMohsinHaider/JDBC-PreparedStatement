@@ -44,7 +44,30 @@ public class LaptopController {
                 System.out.println(msgString);
             }break;
             case 3:{
-                // update
+                System.out.print("Enter laptop Id : ");
+                int id = scanner.nextInt();
+
+                // take input from user
+                System.out.println("Enter Laptop name : ");
+                String name = scanner.next();
+                System.out.println("Enter Laptop color : ");
+                String color = scanner.next();
+                System.out.println("Enter Laptop price : ");
+                double price = scanner.nextDouble();
+                // pass mfd (yyy-mm-dd)
+                System.out.println("Enter laptop manufacturing date : ");
+                String mfd = scanner.next();
+
+                // create a laptop object and set the desire value or filed
+                Laptop laptop = new Laptop();
+                laptop.setName(name);
+                laptop.setColor(color);
+                laptop.setPrice(price);
+                laptop.setMfd(LocalDate.parse(mfd));
+
+                Laptop laptop1 = dao.updateLaptopByIdDao(id,laptop);
+                System.out.println(laptop1);
+
             }break;
             case 4: {
                 List<Laptop> laptops = dao.getAllLaptopDao();
