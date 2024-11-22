@@ -11,7 +11,7 @@ public class LaptopController {
         Scanner scanner = new Scanner(System.in);
         char ch;
 
-        while (true){
+        do {
             System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id\n6. Laptop Filter by price");
             System.out.println("Please Enter Choice");
             int choice = scanner.nextInt();
@@ -35,20 +35,22 @@ public class LaptopController {
 
 //				LocalDate date = LocalDate.parse(mfd);
 //				Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
-                    Laptop laptop = laptopService.saveLaptopService(new Laptop(id,name,color,price, LocalDate.parse(mfd)));
+                    Laptop laptop = laptopService.saveLaptopService(new Laptop(id, name, color, price, LocalDate.parse(mfd)));
 
-                    String msg = laptop!=null?"Successfully data Store":"data not store";
+                    String msg = laptop != null ? "Successfully data Store" : "data not store";
                     System.out.println(msg);
 
-                }break;
+                }
+                break;
                 case 2: {
                     System.out.println("Enter laptop Id");
                     int id = scanner.nextInt();
                     int a = dao.deleteLaptopByIdDao(id);
-                    String msgString = a!=0?"deleted":"given id is not present";
+                    String msgString = a != 0 ? "deleted" : "given id is not present";
                     System.out.println(msgString);
-                }break;
-                case 3:{
+                }
+                break;
+                case 3: {
                     System.out.print("Enter laptop Id : ");
                     int id = scanner.nextInt();
 
@@ -70,31 +72,33 @@ public class LaptopController {
                     laptop.setPrice(price);
                     laptop.setMfd(LocalDate.parse(mfd));
 
-                    Laptop laptop1 = dao.updateLaptopByIdDao(id,laptop);
+                    Laptop laptop1 = dao.updateLaptopByIdDao(id, laptop);
                     System.out.println(laptop1);
 
-                }break;
+                }
+                break;
                 case 4: {
                     List<Laptop> laptops = dao.getAllLaptopDao();
-                    for(Laptop laptop:laptops){
+                    for (Laptop laptop : laptops) {
                         System.out.println(laptop);
                     }
-                }break;
+                }
+                break;
                 case 5: {
                     System.out.print("Enter laptop id to find laptop : ");
                     int id = scanner.nextInt();
                     Laptop laptop = dao.getLaptopByIdDao(id);
                     System.out.println(laptop);
-                }break;
-                case 6:{
+                }
+                break;
+                case 6: {
                     System.out.print("Enter laptop price which is less than : ");
                     double user_filter_price = scanner.nextDouble();
                     List<Laptop> laptops = laptopService.filterLaptopByPriceService(user_filter_price);
-                    if (laptops.isEmpty()){
+                    if (laptops.isEmpty()) {
                         System.out.println("Item Not Found");
-                    }
-                    else {
-                        for (Laptop laptop: laptops){
+                    } else {
+                        for (Laptop laptop : laptops) {
                             System.out.println(laptop);
                         }
                     }
@@ -104,8 +108,7 @@ public class LaptopController {
             // for continuity
             System.out.print("Are You continue Y or y :  ");
             ch = scanner.next().charAt(0);
-            if (!(ch == 'y' || ch == 'Y')) break;
-        }
+        } while (ch == 'y' || ch == 'Y');
         scanner.close();
     }
 }
