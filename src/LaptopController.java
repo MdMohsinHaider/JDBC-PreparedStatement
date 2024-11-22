@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class LaptopController {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id");
+        System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id\n6. Laptop Filter by price");
         System.out.println("Please Enter Choice");
         int choice = scanner.nextInt();
 
@@ -34,7 +34,7 @@ public class LaptopController {
 //				Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
                 Laptop laptop = laptopService.saveLaptopService(new Laptop(id,name,color,price, LocalDate.parse(mfd)));
 
-                String msg = laptop!=null?"Success":"data not store";
+                String msg = laptop!=null?"Successfully data Store":"data not store";
                 System.out.println(msg);
 
             }break;
@@ -82,6 +82,19 @@ public class LaptopController {
                 int id = scanner.nextInt();
                 Laptop laptop = dao.getLaptopByIdDao(id);
                 System.out.println(laptop);
+            }break;
+            case 6:{
+                System.out.print("Enter laptop price which is less than : ");
+                double user_filter_price = scanner.nextDouble();
+                List<Laptop> laptops = laptopService.filterLaptopByPriceService(user_filter_price);
+                if (laptops.isEmpty()){
+                    System.out.println("Item Not Found");
+                }
+                else {
+                    for (Laptop laptop: laptops){
+                        System.out.println(laptop);
+                    }
+                }
             }
         }
         scanner.close();

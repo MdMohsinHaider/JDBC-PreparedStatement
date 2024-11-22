@@ -3,6 +3,7 @@ package com.infosys.jdbc_prepared_statetment_curd.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,13 @@ public class LaptopDao {
             System.out.println(e.getMessage());
             return null;
         }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
 
@@ -55,6 +63,13 @@ public class LaptopDao {
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return 0;
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
@@ -80,6 +95,13 @@ public class LaptopDao {
         catch (Exception e){
             System.err.println(e.getMessage());
             return null;
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
@@ -116,6 +138,13 @@ public class LaptopDao {
             System.out.println(e.getMessage());
             return null;
         }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
 
@@ -135,7 +164,7 @@ public class LaptopDao {
             // Execute the query
             ResultSet result_set = ps.executeQuery();
 
-//            result_set.next();
+//            result_set.next(); // it return boolean true/false;
 
             // Ensure result_set has data before accessing it
             if (result_set.next()) {
@@ -156,6 +185,15 @@ public class LaptopDao {
             System.err.println("Error fetching laptop data: " + e.getMessage());
             return null;
         }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
     }
+
 
 }
