@@ -6,7 +6,7 @@ import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
 public class LaptopService {
     LaptopDao dao = new LaptopDao();
 
-    // Insert serves
+    // .....  1.Insert serves ..........
     public Laptop saveLaptopService(Laptop laptop) {
 
         // check laptop object not null
