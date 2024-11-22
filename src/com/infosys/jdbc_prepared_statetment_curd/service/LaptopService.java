@@ -9,23 +9,32 @@ import java.util.stream.Collectors;
 public class LaptopService {
     LaptopDao dao = new LaptopDao();
 
-    // .....  1.Insert serves ..........
+    /**
+     * Saves a Laptop object to the database after performing the necessary validations.
+     *
+     * @param laptop The Laptop object to be saved.
+     * @return They saved a Laptop object if successful, otherwise null.
+     */
     public Laptop saveLaptopService(Laptop laptop) {
 
-        // check laptop object not null
-        if (laptop == null) System.err.println("Laptop object cannot be null.");
+        // Check if the Laptop object is null and log an error if so
+        if (laptop == null) {
+            System.err.println("Laptop object cannot be null.");
+            return null; // Exit early as no further processing is possible
+        }
 
-        // Store data
+        // Extract laptop properties for validation
         String name = laptop.getName();
         String color = laptop.getColor();
         double price = laptop.getPrice();
 
-        // validation of some data before save in databases.
-        if (name != null && color != null && price >=0){
+        // Validate the data before saving to the database
+        if (name != null && color != null && price >= 0) {
+            // If validation passes, save the laptop object using the DAO and return it
             return dao.saveLaptopDao(laptop);
-        }
-        else {
-            System.err.println(" Check Details insert ");
+        } else {
+            // If validation fails, log an error and return null
+            System.err.println("Invalid laptop details. Please check the inputs.");
             return null;
         }
     }
@@ -33,12 +42,22 @@ public class LaptopService {
 
 
 
-    // filter method by using Price;
-    public List<Laptop> filterLaptopByPriceService(double price){
+
+    /**
+     * Filters laptops based on their price using a stream.
+     *
+     * @param price The maximum price threshold for filtering laptops.
+     * @return A list of laptops that have a price less than or equal to the specified threshold.
+     */
+    public List<Laptop> filterLaptopByPriceService(double price) {
+        // Fetch all laptops from the DAO (Data Access Object)
         List<Laptop> laptops = dao.getAllLaptopDao();
+
+        // Use a stream to filter laptops based on the given price
         return laptops
-                .stream()
-                .filter(a->a.getPrice()<=price)
-                .collect(Collectors.toList());
+                .stream() // Convert the list to a stream
+                .filter(a -> a.getPrice() <= price) // Retain laptops with price <= specified price
+                .collect(Collectors.toList()); // Collect the filtered laptops back into a list
     }
+
 }
