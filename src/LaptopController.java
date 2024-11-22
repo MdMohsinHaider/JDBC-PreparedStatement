@@ -1,5 +1,6 @@
 import com.infosys.jdbc_prepared_statetment_curd.dao.LaptopDao;
 import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
+import com.infosys.jdbc_prepared_statetment_curd.service.LaptopService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,6 +14,7 @@ public class LaptopController {
         int choice = scanner.nextInt();
 
         LaptopDao dao = new LaptopDao();
+        LaptopService laptopService = new LaptopService();
 
         switch (choice) {
             case 1: {
@@ -30,7 +32,7 @@ public class LaptopController {
 
 //				LocalDate date = LocalDate.parse(mfd);
 //				Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
-                Laptop laptop = dao.saveLaptopDao(new Laptop(id,name,color,price, LocalDate.parse(mfd)));
+                Laptop laptop = laptopService.saveLaptopService(new Laptop(id,name,color,price, LocalDate.parse(mfd)));
 
                 String msg = laptop!=null?"Success":"data not store";
                 System.out.println(msg);
