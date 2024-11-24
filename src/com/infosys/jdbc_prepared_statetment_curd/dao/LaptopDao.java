@@ -16,18 +16,11 @@ public class LaptopDao {
 
     Connection connection = LaptopConnection.getLaptopConnection();
 
-    private final String INSERTLAPTOPQUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
-    private final String DELETELAPTOPQUERY = "delete from laptop where id=?";
-    private final String UPDATELAPTOPQUERY = "update laptop set name=?,color=?,price=?,mfd=? where id=?";
-    private final String DISPLAYLAPTOPQUERY = "select * from laptop";
-    private final String DISPALYSINGLELAPTOPQUERY = "select * from laptop where id=?";
-
-
-
     // .................................... 1. insert method ...................................
     public Laptop saveLaptopDao(Laptop laptop) {
         try {
-            PreparedStatement ps = connection.prepareStatement(INSERTLAPTOPQUERY);
+            String INSERT_LAPTOP_QUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(INSERT_LAPTOP_QUERY);
             ps.setInt(1,laptop.getId());
             ps.setString(2, laptop.getName());
             ps.setString(3, laptop.getColor());
@@ -57,7 +50,8 @@ public class LaptopDao {
     // ............................ 2. Delete method ......................................
     public int deleteLaptopByIdDao(int laptopId) {
         try {
-            PreparedStatement ps = connection.prepareStatement(DELETELAPTOPQUERY);
+            String DELETE_LAPTOP_QUERY = "delete from laptop where id=?";
+            PreparedStatement ps = connection.prepareStatement(DELETE_LAPTOP_QUERY);
             ps.setInt(1,laptopId);
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -81,7 +75,8 @@ public class LaptopDao {
     // --------------------3. Update -----------------------------------------------------------
     public Laptop updateLaptopByIdDao(int laptopId, Laptop laptop){
         try {
-            PreparedStatement ps = connection.prepareStatement(UPDATELAPTOPQUERY);
+            String UPDATE_LAPTOP_QUERY = "update laptop set name=?,color=?,price=?,mfd=? where id=?";
+            PreparedStatement ps = connection.prepareStatement(UPDATE_LAPTOP_QUERY);
             ps.setInt(5,laptopId);
             ps.setString(1,laptop.getName());
             ps.setString(2, laptop.getColor());
@@ -89,7 +84,7 @@ public class LaptopDao {
             ps.setObject(4,laptop.getMfd());
 
             int a = ps.executeUpdate(); // if save return 0< return
-            System.out.println("..Successfully full update values..");
+            System.out.println("..Successfully update values..");
             return a != 0?laptop:null;
         }
         catch (Exception e){
@@ -113,7 +108,8 @@ public class LaptopDao {
     // .......4. Display all the data .........................................................
     public List<Laptop> getAllLaptopDao() {
         try {
-            PreparedStatement ps = connection.prepareStatement(DISPLAYLAPTOPQUERY);
+            String DISPLAY_LAPTOP_QUERY = "select * from laptop";
+            PreparedStatement ps = connection.prepareStatement(DISPLAY_LAPTOP_QUERY);
             ResultSet result_set = ps.executeQuery();
             List<Laptop> laptops_list = new ArrayList<>();
 
@@ -158,7 +154,8 @@ public class LaptopDao {
     public Laptop getLaptopByIdDao(int laptop_id) {
         try {
             // Prepare the statement with the query
-            PreparedStatement ps = connection.prepareStatement(DISPALYSINGLELAPTOPQUERY);
+            String DISPLAY_SINGLE_LAPTOP_QUERY = "select * from laptop where id=?";
+            PreparedStatement ps = connection.prepareStatement(DISPLAY_SINGLE_LAPTOP_QUERY);
             ps.setInt(1, laptop_id);
 
             // Execute the query

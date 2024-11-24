@@ -33,11 +33,11 @@ public class LaptopController {
                     System.out.println("Enter laptop manufacturing date : ");
                     String mfd = scanner.next();
 
-//				LocalDate date = LocalDate.parse(mfd);
-//				Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
-                    Laptop laptop = laptopService.saveLaptopService(new Laptop(id, name, color, price, LocalDate.parse(mfd)));
+//				    LocalDate date = LocalDate.parse(mfd);
+				    Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
+                    Laptop laptop2 = laptopService.saveLaptopService(laptop);
 
-                    String msg = laptop != null ? "Successfully data Store" : "data not store";
+                    String msg = laptop2 != null ? "Successfully data Store" : "data not store";
                     System.out.println(msg);
 
                 }
