@@ -1,5 +1,6 @@
 package com.infosys.jdbc_prepared_statetment_curd.dao;
 
+import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,6 +181,37 @@ public class LaptopDao {
         } catch (Exception e) {
             // Print detailed error for debugging
             System.err.println("Error fetching laptop data: " + e.getMessage());
+            return null;
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public List<Laptop> saveMultipleLaptopsDao(List<Laptop> laptops){
+        String INSERT_LAPTOP_QUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_LAPTOP_QUERY);
+            for (Laptop laptop :laptops){
+                preparedStatement.setInt(1,laptop.getId());
+                preparedStatement.setString(2, laptop.getName());
+                preparedStatement.setString(3, laptop.getColor());
+                preparedStatement.setDouble(4, laptop.getPrice());
+                preparedStatement.setObject(5, laptop.getMfd());
+                preparedStatement.addBatch();
+            }
+            assert preparedStatement != null;
+            int[] a = preparedStatement.executeBatch();
+            return laptops;
+        }
+        catch (Exception e) {
+            // Print detailed error for debugging
+            System.err.println("Error Multiple laptops save data: " + e.getMessage());
             return null;
         }
         finally {

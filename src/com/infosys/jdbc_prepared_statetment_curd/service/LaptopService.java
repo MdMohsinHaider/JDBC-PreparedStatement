@@ -23,7 +23,7 @@ public class LaptopService {
             return null; // Exit early as no further processing is possible
         }
 
-        // Extract laptop properties for validation
+        // Extract laptop properties for validation.
         String name = laptop.getName();
         String color = laptop.getColor();
         double price = laptop.getPrice();
@@ -60,4 +60,14 @@ public class LaptopService {
                 .collect(Collectors.toList()); // Collect the filtered laptops back into a list
     }
 
+
+
+    // Multiple Laptops batch Process
+    public List<Laptop> saveMultipleLaptopsService(List<Laptop> laptops){
+        return dao.saveMultipleLaptopsDao(laptops);
+    }
+
 }
+
+
+

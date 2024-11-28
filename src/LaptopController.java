@@ -3,6 +3,7 @@ import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
 import com.infosys.jdbc_prepared_statetment_curd.service.LaptopService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class LaptopController {
         char ch;
 
         do {
-            System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id\n6. Laptop Filter by price");
+            System.out.println("1. Insert\n2. Delete\n3. Update\n4. Display \n5. Display by Id\n6. Laptop Filter by price\n7. Insert Multiple Laptops ");
             System.out.println("Please Enter Choice");
             int choice = scanner.nextInt();
 
@@ -102,12 +103,42 @@ public class LaptopController {
                             System.out.println(laptop);
                         }
                     }
-                }
+                } break;
+                case 7 :
+                    List<Laptop> laptopList = new ArrayList<>();
+                    System.out.println("Enter Numbers of laptops");
+                    int count = scanner.nextInt();
+                    for (int i = 1; i <=count ; i++) {
+                        System.out.println(" ✔️✔️ Laptop Number : "+i);
+                        System.out.println("Enter Laptop id : ");
+                        int id = scanner.nextInt();
+                        System.out.println("Enter Laptop name : ");
+                        String name = scanner.next();
+                        System.out.println("Enter Laptop color : ");
+                        String color = scanner.next();
+                        System.out.println("Enter Laptop price : ");
+                        double price = scanner.nextDouble();
+                        // pass mfd (yyy-mm-dd)
+                        System.out.println("Enter laptop manufacturing date : ");
+                        String mfd = scanner.next();
+
+//				    LocalDate date = LocalDate.parse(mfd);
+                        Laptop laptop = new Laptop(id,name,color,price,LocalDate.parse(mfd));
+                        laptopList.add(laptop);
+                    }
+
+
+                   List<Laptop> laptops = laptopService.saveMultipleLaptopsService(laptopList);
+                    for (Laptop laptop : laptops){
+                        System.out.println(laptop);
+                    }
+
             }
 
             // for continuity
             System.out.print("Are You continue Y or y :  ");
             ch = scanner.next().charAt(0);
+
         } while (ch == 'y' || ch == 'Y');
         scanner.close();
     }
