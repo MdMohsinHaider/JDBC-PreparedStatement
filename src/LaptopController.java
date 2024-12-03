@@ -127,7 +127,6 @@ public class LaptopController {
                         laptopList.add(laptop);
                     }
 
-
                    List<Laptop> laptops = laptopService.saveMultipleLaptopsService(laptopList);
                     for (Laptop laptop : laptops){
                         System.out.println(laptop);

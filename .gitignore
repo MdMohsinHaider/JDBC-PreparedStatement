@@ -2,6 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+src/com/infosys/jdbc_prepared_statetment_curd/connection/LaptopConnection.java
 
 ### Eclipse ###
 .apt_generated
