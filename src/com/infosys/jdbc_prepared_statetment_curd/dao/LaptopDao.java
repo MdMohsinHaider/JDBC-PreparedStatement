@@ -13,11 +13,12 @@ import com.infosys.jdbc_prepared_statetment_curd.connection.LaptopConnection;
 import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
 
 
-public class LaptopDao {
+public class LaptopDao implements LaptopDaoInterface {
 
     Connection connection = LaptopConnection.getLaptopConnection();
 
     // .................................... 1. insert method ...................................
+    @Override
     public Laptop saveLaptopDao(Laptop laptop) {
         try {
             String INSERT_LAPTOP_QUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
@@ -49,6 +50,7 @@ public class LaptopDao {
 
 
     // ............................ 2. Delete method ......................................
+    @Override
     public int deleteLaptopByIdDao(int laptopId) {
         try {
             String DELETE_LAPTOP_QUERY = "delete from laptop where id=?";
@@ -74,6 +76,7 @@ public class LaptopDao {
 
 
     // --------------------3. Update -----------------------------------------------------------
+    @Override
     public Laptop updateLaptopByIdDao(int laptopId, Laptop laptop){
         try {
             String UPDATE_LAPTOP_QUERY = "update laptop set name=?,color=?,price=?,mfd=? where id=?";
@@ -107,6 +110,7 @@ public class LaptopDao {
 
 
     // .......4. Display all the data .........................................................
+    @Override
     public List<Laptop> getAllLaptopDao() {
         try {
             String DISPLAY_LAPTOP_QUERY = "select * from laptop";
@@ -152,6 +156,7 @@ public class LaptopDao {
 
 
     //............. 5. Display Single Laptop data..........................................
+    @Override
     public Laptop getLaptopByIdDao(int laptop_id) {
         try {
             // Prepare the statement with the query
@@ -193,6 +198,8 @@ public class LaptopDao {
 
     }
 
+    // ................................. 1. insert Multiple laptop  method .................................
+    @Override
     public List<Laptop> saveMultipleLaptopsDao(List<Laptop> laptops){
         String INSERT_LAPTOP_QUERY = "insert into laptop(id,name,color,price,mfd ) value(?,?,?,?,?)";
         try {

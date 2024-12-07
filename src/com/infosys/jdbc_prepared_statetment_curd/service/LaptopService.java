@@ -6,7 +6,7 @@ import com.infosys.jdbc_prepared_statetment_curd.entity.Laptop;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LaptopService {
+public class LaptopService implements LaptopServiceInterface{
     LaptopDao dao = new LaptopDao();
 
     /**
@@ -15,6 +15,7 @@ public class LaptopService {
      * @param laptop The Laptop object to be saved.
      * @return They saved a Laptop object if successful, otherwise null.
      */
+    @Override
     public Laptop saveLaptopService(Laptop laptop) {
 
         // Check if the Laptop object is null and log an error if so
@@ -49,6 +50,7 @@ public class LaptopService {
      * @param price The maximum price threshold for filtering laptops.
      * @return A list of laptops that have a price less than or equal to the specified threshold.
      */
+    @Override
     public List<Laptop> filterLaptopByPriceService(double price) {
         // Fetch all laptops from the DAO (Data Access Object)
         List<Laptop> laptops = dao.getAllLaptopDao();
@@ -62,6 +64,7 @@ public class LaptopService {
 
 
 
+    @Override
     // Multiple Laptops batch Process
     public List<Laptop> saveMultipleLaptopsService(List<Laptop> laptops){
         return dao.saveMultipleLaptopsDao(laptops);
